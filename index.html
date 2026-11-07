@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>eddytarot</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141117'/%3E%3Cpath d='M19 6a10 10 0 1 0 7 16A8.5 8.5 0 0 1 19 6z' fill='%23d1ad66'/%3E%3C/svg%3E">
+<meta name="description" content="eddytarot, mi emporio esotérico: lecturas de tarot, rituales de limpieza energética y tienda esotérica en Chile.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Karla:wght@400;600&display=swap">
+<style>
+/* Diseño: tienda a la luz de las velas — fondo ciruela nocturno, latón y pergamino; una columna en el teléfono, rejillas en pantalla grande */
+:root {
+  --ink: #141117;
+  --panel: #1d1922;
+  --panel-2: #262029;
+  --line: #3a3140;
+  --parch: #efe6d6;
+  --muted: #b3a797;
+  --brass: #d1ad66;
+  --brass-deep: #9c7b3c;
+  --rose: #c07686;
+  --on-brass: #1a1408;
+  --f-display: "Cormorant Garamond", "Georgia", serif;
+  --f-roman: "Cinzel", "Times New Roman", serif;
+  --f-body: "Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius: 14px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--parch);
+  font-family: var(--f-body);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ink); }
+a { color: var(--brass); }
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; border-radius: 6px; }
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 500; }
+h2 { font-family: var(--f-display); font-size: clamp(2rem, 6vw, 2.8rem); line-height: 1.1; }
+h3 { font-family: var(--f-roman); font-size: 1rem; letter-spacing: .06em; }
+p { margin: 0; }
+.eyebrow { font-family: var(--f-roman); font-size: .75rem; letter-spacing: .22em; text-transform: uppercase; color: var(--brass); }
+.lead { color: var(--muted); max-width: 60ch; }
+section { padding-block: 64px; }
+.sec-head { display: grid; gap: 10px; margin-bottom: 32px; }
+
+/* Botones */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 0 22px; border-radius: 999px;
+  font: 600 .95rem var(--f-body); text-decoration: none; cursor: pointer;
+  border: 1px solid var(--brass); transition: background .2s, color .2s;
+}
+.btn-solid { background: var(--brass); color: var(--on-brass); }
+.btn-solid:hover { background: var(--parch); border-color: var(--parch); }
+.btn-ghost { background: transparent; color: var(--brass); }
+.btn-ghost:hover { background: var(--panel-2); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* Encabezado */
+header.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--ink) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.top-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--parch); }
+.brand svg { width: 30px; height: 30px; color: var(--brass); flex: none; }
+.brand b { font-family: var(--f-roman); font-weight: 700; letter-spacing: .12em; font-size: 1rem; }
+nav.menu { display: flex; gap: 4px; }
+nav.menu a { color: var(--parch); text-decoration: none; padding: 10px 12px; border-radius: 8px; font-size: .95rem; }
+nav.menu a:hover { background: var(--panel-2); }
+.menu-btn { display: none; background: none; border: 1px solid var(--line); color: var(--parch); width: 44px; height: 44px; border-radius: 10px; cursor: pointer; }
+.menu-btn svg { width: 22px; height: 22px; }
+@media (max-width: 760px) {
+  .menu-btn { display: inline-grid; place-items: center; }
+  nav.menu { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; gap: 0;
+    background: var(--panel); border-bottom: 1px solid var(--line);
+    padding: 8px max(16px, env(safe-area-inset-right, 0px)) 16px max(16px, env(safe-area-inset-left, 0px)); }
+  nav.menu.open { display: flex; }
+  nav.menu a { padding: 14px 8px; border-bottom: 1px solid var(--line); font-size: 1.05rem; }
+  nav.menu a:last-child { border-bottom: 0; }
+}
+
+/* Portada */
+.hero { padding-block: 48px 64px; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+.hero h1 { font-family: var(--f-display); font-style: italic; font-size: clamp(2.6rem, 9vw, 4.6rem); line-height: 1.02; margin-top: 12px; }
+.hero h1 em { font-style: normal; color: var(--brass); }
+.hero .lead { margin-top: 18px; font-size: 1.08rem; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 24px; color: var(--muted); font-size: .9rem; }
+.hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.hero-meta span::before { content: "✦"; color: var(--brass); font-size: .7rem; }
+.spread { position: relative; height: 340px; max-width: 100%; }
+.spread .tcard { position: absolute; top: 20px; left: 50%; width: 150px; height: 250px; margin-left: -75px; transform-origin: 50% 120%; }
+.spread .tcard:nth-child(1) { transform: rotate(-16deg) translateX(-30px); }
+.spread .tcard:nth-child(2) { transform: translateY(-14px); z-index: 2; }
+.spread .tcard:nth-child(3) { transform: rotate(16deg) translateX(30px); }
+@media (max-width: 760px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 12px; }
+  .spread { height: 290px; order: -1; }
+  .spread .tcard { width: 128px; height: 214px; margin-left: -64px; }
+}
+
+/* Carta de tarot (dibujada con CSS) */
+.tcard {
+  border-radius: 12px; background: var(--panel-2);
+  border: 1px solid var(--brass-deep);
+  box-shadow: 0 14px 30px rgba(0,0,0,.45);
+  display: grid; grid-template-rows: auto 1fr auto; padding: 10px; gap: 6px; text-align: center;
+}
+.tcard .num { font-family: var(--f-roman); color: var(--brass); font-size: .85rem; letter-spacing: .1em; }
+.tcard .art { border: 1px solid var(--line); border-radius: 8px; display: grid; place-items: center; color: var(--brass); }
+.tcard .art svg { width: 56%; height: auto; }
+.tcard .name { font-family: var(--f-roman); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; }
+
+/* Servicios */
+.services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.service { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; gap: 12px; align-content: start; }
+.service .ico { width: 44px; height: 44px; color: var(--brass); }
+.service h3 { font-family: var(--f-display); font-size: 1.7rem; letter-spacing: 0; }
+.service p { color: var(--muted); }
+.service ul { margin: 0; padding-left: 1.1em; color: var(--muted); display: grid; gap: 4px; }
+.service li::marker { color: var(--brass); }
+.service .btn { justify-self: start; margin-top: 6px; }
+@media (max-width: 680px) { .services { grid-template-columns: 1fr; } }
+
+/* Carta del día */
+.daily { background: var(--panel); border-block: 1px solid var(--line); }
+.daily-grid { display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
+.flip { width: 180px; height: 300px; perspective: 900px; max-width: 100%; background: none; border: 0; padding: 0; cursor: pointer; }
+.flip-inner { display: block; position: relative; width: 100%; height: 100%; transition: transform .7s cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
+.flip.shown .flip-inner { transform: rotateY(180deg); }
+.flip .face { position: absolute; inset: 0; backface-visibility: hidden; }
+.flip .back-face {
+  border-radius: 12px; border: 1px solid var(--brass-deep);
+  background:
+    radial-gradient(circle at 50% 50%, transparent 38px, var(--brass-deep) 39px, transparent 40px),
+    repeating-linear-gradient(45deg, var(--panel-2) 0 10px, var(--ink) 10px 20px);
+  display: grid; place-items: center; color: var(--brass);
+}
+.flip .back-face svg { width: 60px; }
+.flip .front-face { transform: rotateY(180deg); color: var(--parch); }
+.daily-text { display: grid; gap: 14px; min-width: 0; }
+.daily-result { min-height: 5.5em; }
+.daily-result h3 { font-family: var(--f-display); font-size: 1.9rem; letter-spacing: 0; font-style: italic; color: var(--brass); }
+.daily-result p { color: var(--parch); max-width: 52ch; }
+.daily .note { font-size: .85rem; color: var(--muted); }
+.daily-text .btn { justify-self: start; }
+@media (max-width: 680px) {
+  .daily-grid { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 24px; }
+  .daily-text .btn { justify-self: center; }
+  .daily-result p { margin-inline: auto; }
+}
+
+/* Tienda */
+.shop-tools { display: grid; gap: 14px; margin-bottom: 24px; }
+.search { position: relative; max-width: 420px; }
+.search input {
+  width: 100%; min-height: 48px; padding: 0 16px 0 44px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--panel); color: var(--parch); font: 1rem var(--f-body);
+}
+.search input::placeholder { color: var(--muted); }
+.search svg { position: absolute; left: 16px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: var(--muted); }
+.chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--parch); font: 500 .9rem var(--f-body); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.chip small { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--parch); color: var(--ink); border-color: var(--parch); }
+.chip[aria-pressed="true"] small { color: var(--ink); opacity: .7; }
+.count { color: var(--muted); font-size: .9rem; }
+.products { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.product { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.product .pic { aspect-ratio: 1 / 1; max-width: 100%; display: grid; place-items: center; background: radial-gradient(circle at 50% 60%, var(--panel-2), var(--ink)); color: var(--brass); border-bottom: 1px solid var(--line); overflow: hidden; }
+.product .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.product .pic svg { width: 42%; }
+.product .body { padding: 14px; display: grid; gap: 6px; align-content: start; grid-template-rows: auto 1fr auto; }
+.product .cat { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--rose); }
+.product h3 { font-family: var(--f-body); font-weight: 600; letter-spacing: 0; font-size: .98rem; line-height: 1.3; }
+.product .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 6px; }
+.price { font-family: var(--f-display); font-size: 1.35rem; color: var(--brass); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.price.ask-price { font-family: var(--f-body); font-size: .85rem; color: var(--muted); }
+.product a.ask { font-size: .85rem; font-weight: 600; text-decoration: none; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--brass); color: var(--brass); white-space: nowrap; }
+.product a.ask:hover { background: var(--brass); color: var(--on-brass); }
+.more { display: flex; justify-content: center; margin-top: 28px; }
+.empty { color: var(--muted); padding: 24px 0; }
+@media (max-width: 900px) { .products { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 680px) {
+  .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .product .body { padding: 12px; }
+  .product .row { flex-direction: column; align-items: stretch; }
+  .product a.ask { text-align: center; }
+}
+
+/* Cómo pedir */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; list-style: none; padding: 0; margin: 0; counter-reset: s; }
+.steps li { counter-increment: s; border-top: 1px solid var(--brass-deep); padding-top: 16px; display: grid; gap: 6px; }
+.steps li::before { content: counter(s, upper-roman); font-family: var(--f-roman); color: var(--brass); font-size: 1.3rem; }
+.steps p { color: var(--muted); }
+@media (max-width: 680px) { .steps { grid-template-columns: 1fr; gap: 24px; } }
+
+/* Contacto */
+.contact { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+.contact dl { margin: 0; display: grid; grid-template-columns: repeat(3, auto); gap: 18px 32px; justify-content: start; }
+.contact dt { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.contact dd { margin: 2px 0 0; font-size: 1.05rem; overflow-wrap: anywhere; }
+.copy { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.copy button { background: none; border: 1px solid var(--line); color: var(--parch); border-radius: 8px; padding: 4px 10px; font: .8rem var(--f-body); cursor: pointer; min-height: 32px; }
+@media (max-width: 760px) {
+  .contact { grid-template-columns: 1fr; }
+  .contact dl { grid-template-columns: 1fr; }
+  .contact .btn { width: 100%; }
+}
+
+footer { border-top: 1px solid var(--line); padding-block: 28px 96px; color: var(--muted); font-size: .85rem; }
+footer .wrap { display: grid; gap: 8px; }
+
+/* Botón flotante de WhatsApp */
+.wa-float {
+  position: fixed; z-index: 30;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--brass); color: var(--on-brass);
+  display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.5);
+}
+.wa-float svg { width: 28px; height: 28px; }
+</style>
+
+<!-- Íconos reutilizables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-moon" viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M20 4a12 12 0 1 0 8 19A10 10 0 0 1 20 4z"/><circle cx="24" cy="9" r="1.2" fill="currentColor"/><circle cx="27" cy="15" r=".9" fill="currentColor"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M20 20l-4-4"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 64 64"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 32s10-14 26-14 26 14 26 14-10 14-26 14S6 32 6 32z"/><circle cx="32" cy="32" r="7" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="2.5" fill="currentColor"/><path stroke="currentColor" stroke-width="2" d="M32 6v6M32 52v6M14 12l4 5M50 12l-4 5M14 52l4-5M50 52l-4-5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 64 64"><circle cx="32" cy="32" r="11" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" d="M32 6v10M32 48v10M6 32h10M48 32h10M13 13l7 7M44 44l7 7M13 51l7-7M44 20l7-7"/></symbol>
+  <symbol id="i-star" viewBox="0 0 64 64"><path fill="none" stroke="currentColor" stroke-width="2" d="M32 6l6 20h20l-16 12 6 20-16-12-16 12 6-20L6 26h20z"/></symbol>
+  <symbol id="i-candle" viewBox="0 0 64 64"><path fill="none" stroke="currentColor" stroke-width="2" d="M22 26h20v30H22zM18 56h28"/><path fill="currentColor" d="M32 6c5 7 6 11 0 16-6-5-5-9 0-16z"/></symbol>
+  <symbol id="i-crystal" viewBox="0 0 64 64"><path fill="none" stroke="currentColor" stroke-width="2" d="M32 4l12 14-4 38H24l-4-38zM20 18h24M32 4v52M26 18l6 38 6-38"/></symbol>
+  <symbol id="i-deck" viewBox="0 0 64 64"><rect x="12" y="14" width="26" height="40" rx="3" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(-10 25 34)"/><rect x="26" y="10" width="26" height="40" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M39 22l3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1z"/></symbol>
+  <symbol id="i-incense" viewBox="0 0 64 64"><path fill="none" stroke="currentColor" stroke-width="2" d="M10 54h44M32 54V24M26 48c0-4 12-4 12 0"/><path fill="none" stroke="currentColor" stroke-width="1.6" d="M32 22c-6-4 6-8 0-12M36 18c4-3-2-6 2-10"/></symbol>
+  <symbol id="i-bottle" viewBox="0 0 64 64"><path fill="none" stroke="currentColor" stroke-width="2" d="M26 6h12v6h-12zM28 12v8c-8 3-12 9-12 18 0 10 7 18 16 18s16-8 16-18c0-9-4-15-12-18v-8"/><path fill="none" stroke="currentColor" stroke-width="1.6" d="M20 38h24"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="#inicio"><svg aria-hidden="true"><use href="#i-moon"/></svg><b>EDDYTAROT</b></a>
+    <button class="menu-btn" id="menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="menu" id="menu" aria-label="Secciones">
+      <a href="#servicios">Tarot y rituales</a>
+      <a href="#carta">Carta del día</a>
+      <a href="#tienda">Catálogo</a>
+      <a href="#pedir">Cómo pedir</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Mi emporio esotérico · Chile</p>
+        <h1>Camino a la claridad, <em>luces guía</em> para tu vida.</h1>
+        <p class="lead">Lecturas de tarot personales, rituales de limpieza energética y una tienda con velas, perfumes, aceites, jabones, saumerios y figuras de protección.</p>
+        <div class="hero-cta">
+          <a class="btn btn-solid" data-wa="Hola Eddy, quiero agendar una lectura de tarot." href="#">Agendar lectura</a>
+          <a class="btn btn-ghost" href="#tienda">Ver catálogo</a>
+        </div>
+        <div class="hero-meta"><span>Tarot personal</span><span>Rituales de limpieza</span><span>Atención por WhatsApp</span></div>
+      </div>
+      <div class="spread" aria-hidden="true">
+        <div class="tcard"><span class="num">XVIII</span><span class="art"><svg><use href="#i-moon"/></svg></span><span class="name">La Luna</span></div>
+        <div class="tcard"><span class="num">XVII</span><span class="art"><svg><use href="#i-star"/></svg></span><span class="name">La Estrella</span></div>
+        <div class="tcard"><span class="num">XIX</span><span class="art"><svg><use href="#i-sun"/></svg></span><span class="name">El Sol</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicios">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Tarot y rituales</p>
+        <h2>Una guía hecha para ti</h2>
+        <p class="lead">Cada consulta es personal y confidencial. Escríbeme y vemos juntas qué necesitas.</p>
+      </div>
+      <div class="services">
+        <article class="service">
+          <svg class="ico" aria-hidden="true"><use href="#i-deck"/></svg>
+          <h3>Lecturas de tarot</h3>
+          <p>Sumérgete en el autodescubrimiento con una sesión de tarot personal, diseñada especialmente para ti.</p>
+          <ul><li>Amor y relaciones</li><li>Trabajo y dinero</li><li>Caminos y decisiones</li></ul>
+          <a class="btn btn-solid" data-wa="Hola Eddy, quiero agendar una lectura de tarot." href="#"><svg aria-hidden="true"><use href="#i-wa"/></svg>Agendar lectura</a>
+        </article>
+        <article class="service">
+          <svg class="ico" aria-hidden="true"><use href="#i-candle"/></svg>
+          <h3>Rituales de limpieza</h3>
+          <p>Purifica tu aura con rituales de limpieza energética personalizados para lograr paz y equilibrio.</p>
+          <ul><li>Limpieza de energías</li><li>Abre caminos</li><li>Protección y armonía</li></ul>
+          <a class="btn btn-solid" data-wa="Hola Eddy, quiero consultar por un ritual de limpieza energética." href="#"><svg aria-hidden="true"><use href="#i-wa"/></svg>Consultar ritual</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="carta" class="daily">
+    <div class="wrap daily-grid">
+      <button class="flip" id="flip" aria-label="Sacar una carta">
+        <span class="flip-inner">
+          <span class="face back-face"><svg><use href="#i-eye"/></svg></span>
+          <span class="face front-face tcard" id="card-front"><span class="num">–</span><span class="art"><svg><use href="#i-star"/></svg></span><span class="name">–</span></span>
+        </span>
+      </button>
+      <div class="daily-text">
+        <p class="eyebrow">Carta del día</p>
+        <h2>Saca tu carta de hoy</h2>
+        <div class="daily-result" id="daily-result" aria-live="polite">
+          <p class="lead">Respira, piensa en tu día y toca la carta para descubrir qué arcano mayor te acompaña.</p>
+        </div>
+        <button class="btn btn-solid" id="draw">Sacar una carta</button>
+        <p class="note">Un mensaje breve para reflexionar. Para una lectura completa, agenda tu hora.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tienda">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Tienda esotérica</p>
+        <h2>Catálogo</h2>
+        <p class="lead">Amuletos, velas y aceites que aportan vibraciones positivas a tu espacio. Toca "Pedir" y me llega tu pedido por WhatsApp.</p>
+      </div>
+      <div class="shop-tools">
+        <label class="search" for="q">
+          <svg aria-hidden="true"><use href="#i-search"/></svg>
+          <input id="q" type="search" placeholder="Buscar: canela, amor, suerte…" autocomplete="off" aria-label="Buscar productos">
+        </label>
+        <div class="chips" id="chips" role="toolbar" aria-label="Filtrar por categoría"></div>
+        <p class="count" id="count" aria-live="polite"></p>
+      </div>
+      <div class="products" id="products"></div>
+      <div class="more"><button class="btn btn-ghost" id="more" type="button">Ver más productos</button></div>
+    </div>
+  </section>
+
+  <section id="pedir">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Cómo pedir</p>
+        <h2>Tres pasos sencillos</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>Elige</h3><p>Busca en el catálogo o elige la lectura o el ritual que necesitas.</p></li>
+        <li><h3>Escribe</h3><p>Toca "Pedir" o "Agendar" y se abre WhatsApp con tu mensaje listo.</p></li>
+        <li><h3>Confirma</h3><p>Coordinamos el valor, el pago y la entrega o la hora de tu lectura.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Contacto</p>
+        <h2>Conversemos</h2>
+      </div>
+      <div class="contact">
+        <dl>
+          <div><dt>WhatsApp</dt><dd class="copy"><span id="phone-text">+56 9 6628 5335</span><button id="copy-phone" type="button">Copiar</button></dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/eddytarot" target="_blank" rel="noopener">@eddytarot</a></dd></div>
+          <div><dt>TikTok</dt><dd><a href="https://www.tiktok.com/@eddytarot" target="_blank" rel="noopener">@eddytarot</a></dd></div>
+        </dl>
+        <a class="btn btn-solid" data-wa="Hola Eddy, tengo una consulta." href="#"><svg aria-hidden="true"><use href="#i-wa"/></svg>Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="year">2026</span> eddytarot · Mi emporio esotérico</p>
+    <p>Las lecturas de tarot y los rituales son una guía espiritual y de reflexión personal; no reemplazan la atención médica, legal ni financiera.</p>
+  </div>
+</footer>
+
+<a class="wa-float" data-wa="Hola Eddy, vengo de la página web." href="#" aria-label="Escribir por WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+
+<script src="productos.js"></script>
+<script>
+// ===== Datos fáciles de cambiar =====
+const WHATSAPP = "56966285335"; // número con código de país, sin + ni espacios
+const POR_PAGINA = 12;
+
+// Nombres bonitos para las categorías del catálogo
+const CATEGORIAS = {
+  "Perfumes Esotericos": "Perfumes esotéricos",
+  "Velas": "Velas y velones",
+  "Aceites": "Aceites y lociones",
+  "Jabones": "Jabones",
+  "Sales de baños": "Sales de baño",
+  "Saumerios": "Saumerios",
+  "Feromonas": "Feromonas",
+  "Figura Protección": "Figuras de protección",
+  "LLaveros Proteccion": "Llaveros de protección",
+  "Afrodiciacos Fuertes": "Afrodisíacos"
+};
+const ICONO_CAT = { "Velas": "candle", "Saumerios": "incense", "Figura Protección": "crystal", "LLaveros Proteccion": "crystal" };
+
+const ARCANA = [
+  ["0", "El Loco", "Un comienzo sin miedo. Atrévete a dar el primer paso aunque no veas todo el camino."],
+  ["I", "El Mago", "Tienes las herramientas que necesitas. Hoy es buen día para empezar lo que has pensado."],
+  ["II", "La Sacerdotisa", "Escucha tu intuición. La respuesta que buscas ya la sabes por dentro."],
+  ["III", "La Emperatriz", "Abundancia y cuidado. Riega lo que quieres ver crecer."],
+  ["IV", "El Emperador", "Orden y firmeza. Pon límites claros y organiza tus prioridades."],
+  ["V", "El Sumo Sacerdote", "Busca consejo en alguien de confianza o en lo que te enseñaron tus mayores."],
+  ["VI", "Los Enamorados", "Una decisión del corazón. Elige lo que esté de acuerdo con tus valores."],
+  ["VII", "El Carro", "Avance y determinación. Mantén el rumbo y no te distraigas."],
+  ["VIII", "La Fuerza", "La paciencia y la ternura vencen más que la fuerza bruta."],
+  ["IX", "El Ermitaño", "Tómate un momento a solas. El silencio te dará claridad."],
+  ["X", "La Rueda de la Fortuna", "Las cosas cambian. Lo que hoy pesa, mañana se mueve a tu favor."],
+  ["XI", "La Justicia", "Cada acción tiene su consecuencia. Actúa con honestidad."],
+  ["XII", "El Colgado", "Mira la situación desde otro ángulo antes de actuar."],
+  ["XIII", "La Muerte", "Un ciclo termina para que otro empiece. Suelta lo que ya no te sirve."],
+  ["XIV", "La Templanza", "Busca el punto medio. Ni tanto ni tan poco."],
+  ["XV", "El Diablo", "Revisa qué te ata. Tienes más libertad de la que crees."],
+  ["XVI", "La Torre", "Un cambio inesperado despeja el camino. Lo que cae no era firme."],
+  ["XVII", "La Estrella", "Esperanza y sanación. Confía, lo mejor está por llegar."],
+  ["XVIII", "La Luna", "No todo es lo que parece. Espera a tener más luz antes de decidir."],
+  ["XIX", "El Sol", "Alegría y éxito. Disfruta y comparte lo bueno del día."],
+  ["XX", "El Juicio", "Un llamado a renovarte. Perdona y sigue adelante."],
+  ["XXI", "El Mundo", "Algo se completa. Celebra lo que has logrado."]
+];
+
+// ===== WhatsApp =====
+function waLink(msg) { return "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg); }
+function wireWa(root) {
+  root.querySelectorAll("[data-wa]").forEach(a => {
+    a.href = waLink(a.dataset.wa);
+    a.target = "_blank"; a.rel = "noopener";
+  });
+}
+
+// ===== Menú del teléfono =====
+const menuBtn = document.getElementById("menu-btn");
+const menu = document.getElementById("menu");
+menuBtn.addEventListener("click", () => {
+  const open = menu.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", open);
+});
+menu.addEventListener("click", e => { if (e.target.tagName === "A") { menu.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); } });
+
+// ===== Catálogo =====
+const PRODUCTS = (window.PRODUCTOS || []).map(p => ({ ...p, c: Array.isArray(p.c) ? p.c : [p.c] }));
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const fmt = n => "$" + n.toLocaleString("es-CL");
+const catName = c => CATEGORIAS[c] || c;
+
+const counts = {};
+PRODUCTS.forEach(p => p.c.forEach(c => counts[c] = (counts[c] || 0) + 1));
+const cats = ["Todo", ...Object.keys(counts).sort((a, b) => counts[b] - counts[a])];
+
+const chips = document.getElementById("chips");
+const grid = document.getElementById("products");
+const moreBtn = document.getElementById("more");
+const countEl = document.getElementById("count");
+const q = document.getElementById("q");
+let current = "Todo", shown = POR_PAGINA;
+
+function renderChips() {
+  chips.innerHTML = cats.map(c => `<button class="chip" type="button" data-cat="${esc(c)}" aria-pressed="${c === current}">${esc(c === "Todo" ? "Todo" : catName(c))} <small>${c === "Todo" ? PRODUCTS.length : counts[c]}</small></button>`).join("");
+}
+function filtered() {
+  const term = norm(q.value.trim());
+  return PRODUCTS.filter(p => (current === "Todo" || p.c.includes(current)) && (!term || norm(p.n + " " + p.c.join(" ")).includes(term)));
+}
+function card(p) {
+  const priceHtml = p.p > 0 ? `<span class="price">${fmt(p.p)}</span>` : `<span class="price ask-price">Consultar valor</span>`;
+  const msg = `Hola Eddy, me interesa: ${p.n}${p.p > 0 ? " (" + fmt(p.p) + ")" : ""}.`;
+  const icon = ICONO_CAT[p.c[0]] || "bottle";
+  const pic = p.i
+    ? `<img src="${esc(p.i)}" alt="${esc(p.n)}" loading="lazy" width="300" height="300" onerror="this.replaceWith(document.getElementById('fallback-${icon}').content.cloneNode(true))">`
+    : `<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-${icon}"/></svg>`;
+  return `<article class="product">
+      <div class="pic">${pic}</div>
+      <div class="body">
+        <span class="cat">${esc(catName(p.c[0]))}</span>
+        <h3>${esc(p.n)}</h3>
+        <div class="row">${priceHtml}<a class="ask" data-wa="${esc(msg)}" href="#">Pedir</a></div>
+      </div>
+    </article>`;
+}
+function renderProducts() {
+  const list = filtered();
+  const page = list.slice(0, shown);
+  grid.innerHTML = page.length ? page.map(card).join("") : `<p class="empty">No encontré productos con esa búsqueda. Prueba con otra palabra o escríbeme por WhatsApp.</p>`;
+  countEl.textContent = list.length ? `Mostrando ${page.length} de ${list.length} productos` : "";
+  moreBtn.hidden = shown >= list.length;
+  wireWa(grid);
+}
+chips.addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  current = b.dataset.cat; shown = POR_PAGINA; renderChips(); renderProducts();
+});
+q.addEventListener("input", () => { shown = POR_PAGINA; renderProducts(); });
+moreBtn.addEventListener("click", () => { shown += POR_PAGINA; renderProducts(); });
+
+// ===== Carta del día =====
+const flip = document.getElementById("flip");
+const front = document.getElementById("card-front");
+const result = document.getElementById("daily-result");
+const drawBtn = document.getElementById("draw");
+const iconFor = n => ({ "XVIII": "moon", "XVII": "star", "XIX": "sun", "XXI": "star", "II": "moon", "III": "crystal", "I": "candle", "IX": "candle" }[n] || "eye");
+function draw() {
+  const again = flip.classList.contains("shown");
+  flip.classList.remove("shown");
+  setTimeout(() => {
+    const [num, name, msg] = ARCANA[Math.floor(Math.random() * ARCANA.length)];
+    front.innerHTML = `<span class="num">${num}</span><span class="art"><svg viewBox="0 0 64 64"><use href="#i-${iconFor(num)}"/></svg></span><span class="name">${name}</span>`;
+    result.innerHTML = `<h3>${name}</h3><p>${msg}</p>`;
+    flip.classList.add("shown");
+    drawBtn.textContent = "Sacar otra carta";
+  }, again ? 400 : 0);
+}
+flip.addEventListener("click", draw);
+drawBtn.addEventListener("click", draw);
+
+// ===== Copiar teléfono =====
+document.getElementById("copy-phone").addEventListener("click", e => {
+  const span = document.getElementById("phone-text");
+  const btn = e.currentTarget;
+  const done = () => { btn.textContent = "Copiado"; setTimeout(() => btn.textContent = "Copiar", 1600); };
+  const selectText = () => { const r = document.createRange(); r.selectNodeContents(span); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+  try { navigator.clipboard.writeText(span.textContent).then(done, selectText); } catch (_) { selectText(); }
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+renderChips(); renderProducts(); wireWa(document);
+</script>
+
+<!-- Íconos de reemplazo si una foto no carga -->
+<template id="fallback-bottle"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-bottle"/></svg></template>
+<template id="fallback-candle"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-candle"/></svg></template>
+<template id="fallback-incense"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-incense"/></svg></template>
+<template id="fallback-crystal"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-crystal"/></svg></template>
+
+</html>
